@@ -6,20 +6,10 @@ public class SettingsMenu : MonoBehaviour
     [Header("UI Elements")]
     public GameObject settingsPanel; // панель настроек
     public Slider volumeSlider;      // слайдер громкости
-
     private AudioSource musicSource;
 
     void Start()
     {
-        // Проверяем, что панель назначена
-        if (settingsPanel == null)
-            Debug.LogError("Settings Panel не назначена в инспекторе!");
-
-        // Проверяем, что слайдер назначен
-        if (volumeSlider == null)
-            Debug.LogError("Volume Slider не назначен в инспекторе!");
-
-        // Ищем MusicManager
         MusicManager musicManager = FindObjectOfType<MusicManager>();
         if (musicManager == null)
         {
@@ -41,22 +31,11 @@ public class SettingsMenu : MonoBehaviour
         // Подписываемся на изменение слайдера
         if (volumeSlider != null)
             volumeSlider.onValueChanged.AddListener(SetVolume);
-
-        // Скрываем панель настроек по умолчанию
-        if (settingsPanel != null)
-            settingsPanel.SetActive(false);
-    }
-
-    public void OpenSettings()
-    {
-        if (settingsPanel != null)
-            settingsPanel.SetActive(true);
     }
 
     public void CloseSettings()
     {
-        if (settingsPanel != null)
-            settingsPanel.SetActive(false);
+        settingsPanel.SetActive(false);
     }
 
     public void SetVolume(float value)

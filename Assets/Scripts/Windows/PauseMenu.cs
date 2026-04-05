@@ -1,53 +1,93 @@
+п»їusing System.ComponentModel;
+using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-    [Header("Pause UI")]
-    public GameObject pausePanel;  // панель с кнопками паузы
-    private bool isPaused = false;
+    [SerializeField] GameObject PausePannel;
+    [SerializeField] GameObject Pannel;
+    [SerializeField] Button Play;
+    [SerializeField] Button Levels;
+    [SerializeField] Button Restart;
+    [SerializeField] Button Questions;
+    [SerializeField] Button Settings;
+    [SerializeField] Button MainMenu;
+
+    private bool flag = false;
+    private bool Open = false;
 
     void Start()
     {
-        if (pausePanel != null)
-            pausePanel.SetActive(false); // скрываем панель при старте
+        if (flag)
+            PausePannel.SetActive(false);
+
+        Play.onClick.AddListener(Begen_Play);
+        Restart.onClick.AddListener(RestartLevel);
+        MainMenu.onClick.AddListener(Go_Home);
+        Levels.onClick.AddListener(Levels_Click);
+        Questions.onClick.AddListener(Quest_Click);
     }
 
     void Update()
     {
-        // Открытие/закрытие паузы клавишей Escape
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!isPaused) Pause();
-            else Resume();
+            if (!flag)
+            {
+                PausePannel.SetActive(true);
+                Time.timeScale = 0f;
+                flag = true;
+            }
+            else
+            {
+                Begen_Play();
+            }
         }
     }
 
-    public void Pause()
+    void Begen_Play()
     {
-        if (pausePanel == null) return;
-        pausePanel.SetActive(true);
-        Time.timeScale = 0f; // останавливаем игру
-        isPaused = true;
+        PausePannel.SetActive(false);
+        Time.timeScale = 1f;
+        flag = false;
     }
 
-    public void Resume()
-    {
-        if (pausePanel == null) return;
-        pausePanel.SetActive(false);
-        Time.timeScale = 1f; // возобновляем игру
-        isPaused = false;
-    }
-
-    public void RestartLevel()
+    void RestartLevel()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("Level1_1");
     }
 
-    public void MainMenu()
+    void Go_Home()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu"); // имя твоей сцены главного меню
+        SceneManager.LoadScene("MainMenu");
+    }
+    void Levels_Click()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("LevelSelect");
+    }
+    async void Quest_Click()
+    {
+        Pannel.SetActive(true);
+        await Quest_Show();
+    }
+    async Task Quest_Show()
+    {
+        while (true)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Pannel.SetActive(false);
+                PausePannel.SetActive(true);
+                Time.timeScale = 0f;
+                break;
+            }
+            await Task.Yield();
+        }
     }
 }

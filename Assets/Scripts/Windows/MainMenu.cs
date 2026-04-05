@@ -1,18 +1,42 @@
+using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    // Кнопка Play
-    public void PlayGame()
+    [SerializeField] Button Quit;
+    [SerializeField] Button Play;
+    [SerializeField] Button Settings;
+    [SerializeField] GameObject SettingsPanel;
+    //Button Shoping;
+
+    void Start()
+    {
+        Quit.onClick.AddListener(ButtonQuit_Click);
+        Play.onClick.AddListener(ButtonPlay_Click);
+        Settings.onClick.AddListener(ButtonSettings_Click);
+        //Shoping.onClick.AddListener(ButtonShop_Click);
+    }
+
+    void ButtonQuit_Click()
+    {
+        #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;  // Для редактора
+        #else
+                Application.Quit();  // Для собранной игры
+        #endif
+    }
+    void ButtonPlay_Click()
     {
         SceneManager.LoadScene("LevelSelect");
     }
-
-    // Кнопка Quit
-    public void QuitGame()
+    void ButtonSettings_Click()
     {
-        Application.Quit();
-        Debug.Log("Game Quit"); // работает только в редакторе
+        SettingsPanel.SetActive(true);
     }
+    //void ButtonShop_Click()
+    //{
+    //    SceneManager.LoadScene("Shop");
+    //}
 }
