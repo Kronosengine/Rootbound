@@ -428,7 +428,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuMusic: {fileID: 8300000, guid: 2e8fff1d7f3022c45a60597f7d828951, type: 3}
-  levelMusic: {fileID: 8300000, guid: 3a6403a1d7ac15a47a7c3d5b4b540330, type: 3}
+  levelMusic: {fileID: 8300000, guid: ae8a3ec6aabb326448d4faa23870740a, type: 3}
 --- !u!82 &887416811
 AudioSource:
   m_ObjectHideFlags: 0
