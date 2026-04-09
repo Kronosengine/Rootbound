@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private float moveInput;
     private bool isGrounded;
-
+    int count = 0;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -24,10 +24,15 @@ public class PlayerMovement : MonoBehaviour
 
         moveInput = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
-
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (isGrounded )
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            count = 0;
+        }
+        if (Input.GetKeyDown(KeyCode.Space) && count < 1)
+        {
+            float currentJumpForce = count == 0 ? jumpForce : jumpForce * 1.5f;
+            rb.velocity = new Vector2(rb.velocity.x, currentJumpForce);
+            count++;
         }
         if (Input.GetKeyDown(KeyCode.R) && isGrounded)
         {
