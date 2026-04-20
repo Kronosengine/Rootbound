@@ -76,7 +76,6 @@ GameObject:
   - component: {fileID: 8633632441465852921}
   - component: {fileID: 5174504894487010216}
   - component: {fileID: 6763627848203171944}
-  - component: {fileID: 7936674892125457396}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -260,21 +259,3 @@ MonoBehaviour:
   throwPoint: {fileID: 6306370021946765599}
   throwForce: 10
   cooldown: 0.5
---- !u!114 &7936674892125457396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6884224296145163576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28c5a23d2d07df540b00ae5be2e2c3b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 3
-  invincibleTime: 2
-  hearts:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
