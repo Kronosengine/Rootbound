@@ -9,6 +9,8 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject PausePannel;
     [SerializeField] GameObject Pannel;
+    [SerializeField] GameObject SettingPanel;
+    [SerializeField] GameObject QuestPanel;
     [SerializeField] Button Play;
     [SerializeField] Button Levels;
     [SerializeField] Button Restart;
@@ -29,6 +31,7 @@ public class PauseMenu : MonoBehaviour
         MainMenu.onClick.AddListener(Go_Home);
         Levels.onClick.AddListener(Levels_Click);
         Questions.onClick.AddListener(Quest_Click);
+        Settings.onClick.AddListener(Setting_Click);
     }
 
     void Update()
@@ -58,7 +61,7 @@ public class PauseMenu : MonoBehaviour
     void RestartLevel()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Level1_1");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     void Go_Home()
@@ -73,8 +76,12 @@ public class PauseMenu : MonoBehaviour
     }
     async void Quest_Click()
     {
-        Pannel.SetActive(true);
+        QuestPanel.SetActive(true);
         await Quest_Show();
+    }
+    void Setting_Click()
+    {
+        SettingPanel.SetActive(true);
     }
     async Task Quest_Show()
     {
@@ -82,7 +89,7 @@ public class PauseMenu : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                Pannel.SetActive(false);
+                QuestPanel.SetActive(false);
                 PausePannel.SetActive(true);
                 Time.timeScale = 0f;
                 break;

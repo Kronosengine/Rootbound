@@ -2,17 +2,31 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target;
-    public float smoothSpeed = 5f;
+    public Transform player;
+    public float smoothSpeed = 0.125f;
     public Vector3 offset;
+
+    [Header("Limits")]
+    public bool useMaxLimit = false;
+    public float maxXPosition; // Точка, где камера должна встать (у твоего дерева)
 
     void LateUpdate()
     {
-        if (target == null) return;
+        if (player == null) return;
 
-        Vector3 desiredPosition = target.position + offset;
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
+        // Вычисляем желаемую позицию
+        Vector3 desiredPosition = player.position + offset;
 
-        transform.position = new Vector3(smoothedPosition.x, smoothedPosition.y, transform.position.z);
+        // ОГРАНИЧЕНИЕ: Если включен лимит, не даем X стать больше maxXPosition
+        if (useMaxLimit)
+        {
+            desiredPosition.x = Mathf.Clamp(desiredPosition.x, float.MinValue, maxXPosition);
+        }
+
+        // Камера не должна двигаться по Z, оставляем её стандартной
+        desiredPosition.z = transform.position.z;
+
+        // Плавное перемещение
+        transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
     }
 }
