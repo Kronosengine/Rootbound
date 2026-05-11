@@ -1,0 +1,21 @@
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Mm]emoryCaptures/
+/userSettings/
+
+# Отключаем отслеживание файлов решений Visual Studio
+*.csproj
+*.sln
+*.suo
+*.user
+*.unitypackage/Library/
+/Temp/
+/Obj/
+/Logs/
+/UserSettings/
+/*.csproj
+/*.sln
