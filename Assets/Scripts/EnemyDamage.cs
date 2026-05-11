@@ -14,6 +14,7 @@ public class EnemyDamage : MonoBehaviour
             {
                 player.TakeDamage(damage);
             }
+            //копайлотом тут не пахнет. Здесь замешан DeepSeek
         }
     }
 }
